@@ -88,8 +88,8 @@
             height: 220px;
             object-fit: cover;
             border-radius: 50%; /* Hace la foto circular */
-            border: 4px solid #ec4899;
-            box-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+            border: 1px solid #ec4899;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
             margin-bottom: 15px;
             animation: fadeIn 1.5s ease-out;
         }
@@ -127,9 +127,9 @@
         /* GIF dab.gif flotando en lugar de los globos */
         .dab-flotante {
             position: absolute;
-            bottom: -80px;
+            bottom: -100px;
             z-index: 2;
-            width: 60px;
+            width: 80px;
             height: auto;
             opacity: 0.95;
         }
@@ -195,14 +195,14 @@
             }
 
             // Crear GIFs de dab.gif flotando (reemplazo de los globos)
-            for(let i = 0; i < 12; i++) {
+            for(let i = 0; i < 20; i++) {
                 let dab = document.createElement('img');
                 dab.src = 'dab.gif';
                 dab.alt = 'dab';
                 dab.className = 'dab-flotante';
                 dab.style.left = Math.random() * 90 + 'vw';
                 dab.style.width = (Math.random() * 40 + 50) + 'px'; // tamaños variados entre 50 y 90px
-                dab.style.animation = `flotarDab ${Math.random() * 4 + 6}s ease-in-out infinite`;
+                dab.style.animation = `flotarDab ${Math.random() * 3 + 7}s ease-in-out infinite`;
                 dab.style.animationDelay = Math.random() * 3 + 's';
 
                 document.body.appendChild(dab);
