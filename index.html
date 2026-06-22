@@ -17,6 +17,28 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* GIF de fondo */
+        #fondo-gif {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.35; /* para que el texto siga siendo legible encima */
+        }
+
+        /* Capa oscura extra para mejorar contraste sobre el gif */
+        #overlay-oscuro {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.45);
+            z-index: 1;
         }
 
         /* Pantalla inicial para activar la música */
@@ -47,6 +69,7 @@
             flex-direction: column;
             align-items: center;
             z-index: 10;
+            position: relative;
         }
 
         h1 {
@@ -59,14 +82,14 @@
             animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Estilo para la foto del gatito */
+        /* Estilo para la foto del gatito (más grande) */
         .foto-gato {
-            width: 150px;
-            height: 150px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
             border-radius: 50%; /* Hace la foto circular */
             border: 4px solid #ec4899;
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
             margin-bottom: 15px;
             animation: fadeIn 1.5s ease-out;
         }
@@ -94,39 +117,24 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Globos y Confeti */
-        .globo, .confetti {
+        /* Confeti */
+        .confetti {
             position: absolute;
             bottom: -50px;
-            z-index: 1;
-        }
-        .globo {
-            width: 40px;
-            height: 50px;
-            border-radius: 50%;
-            opacity: 0.9;
-        }
-        /* El nudo del globo */
-        .globo::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 15px;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-        }
-        /* El hilo del globo */
-        .globo::after {
-            content: '';
-            position: absolute;
-            bottom: -40px;
-            left: 19px;
-            width: 1px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.5);
+            z-index: 2;
         }
 
-        @keyframes flotarGlobo {
+        /* Imagen jorge.png flotando en lugar de los globos */
+        .jorge-flotante {
+            position: absolute;
+            bottom: -80px;
+            z-index: 2;
+            width: 60px;
+            height: auto;
+            opacity: 0.95;
+        }
+
+        @keyframes flotarJorge {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(-120vh) rotate(15deg); }
         }
@@ -138,6 +146,10 @@
 </head>
 <body>
 
+    <!-- GIF de fondo: sube tu archivo como "fondo.gif" al mismo repositorio -->
+    <img src="fondo.gif" alt="" id="fondo-gif">
+    <div id="overlay-oscuro"></div>
+
     <audio id="musica-fondo" loop>
         <source src="cancion.mp3" type="audio/mpeg">
     </audio>
@@ -148,7 +160,7 @@
 
     <div id="tarjeta">
         <img src="gato.png" alt="Gato persa blanco con negro" class="foto-gato">
-        
+
         <h1>FELIZ CUMPLEAÑOS PELADA RUTH 🎈</h1>
         <p>Pasala de forma genuinamente agradable</p>
     </div>
@@ -158,7 +170,7 @@
             // Ocultar inicio y mostrar tarjeta
             document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('tarjeta').style.display = 'flex';
-            
+
             // Iniciar música
             let musica = document.getElementById('musica-fondo');
             musica.play().catch(error => console.log("La reproducción automática falló", error));
@@ -168,7 +180,6 @@
 
         function crearDecoraciones() {
             const coloresConfeti = ['#38bdf8', '#fbbf24', '#f43f5e', '#a78bfa', '#34d399'];
-            const coloresGlobos = ['#ec4899', '#8b5cf6', '#ef4444', '#3b82f6', '#10b981'];
 
             // Crear Confeti
             for(let i = 0; i < 50; i++) {
@@ -183,22 +194,18 @@
                 document.body.appendChild(confeti);
             }
 
-            // Crear Globos
+            // Crear imágenes de jorge.png flotando (reemplazo de los globos)
             for(let i = 0; i < 12; i++) {
-                let globo = document.createElement('div');
-                let colorBase = coloresGlobos[Math.floor(Math.random() * coloresGlobos.length)];
-                globo.className = 'globo';
-                globo.style.left = Math.random() * 90 + 'vw';
-                globo.style.backgroundColor = colorBase;
-                globo.style.animation = `flotarGlobo ${Math.random() * 4 + 6}s ease-in-out infinite`;
-                globo.style.animationDelay = Math.random() * 3 + 's';
-                
-                // Darle color al nudo del globo igual que el cuerpo
-                let style = document.createElement('style');
-                style.innerHTML = `.globo:nth-child(${i})::before { border-bottom: 10px solid ${colorBase}; }`;
-                document.head.appendChild(style);
+                let jorge = document.createElement('img');
+                jorge.src = 'jorge.png';
+                jorge.alt = 'jorge';
+                jorge.className = 'jorge-flotante';
+                jorge.style.left = Math.random() * 90 + 'vw';
+                jorge.style.width = (Math.random() * 40 + 50) + 'px'; // tamaños variados entre 50 y 90px
+                jorge.style.animation = `flotarJorge ${Math.random() * 4 + 6}s ease-in-out infinite`;
+                jorge.style.animationDelay = Math.random() * 3 + 's';
 
-                document.body.appendChild(globo);
+                document.body.appendChild(jorge);
             }
         }
     </script>
