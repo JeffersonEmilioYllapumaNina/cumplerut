@@ -41,11 +41,15 @@
             z-index: 1;
         }
 
-        /* Pantalla inicial para activar la música */
+        /* Pantalla inicial para activar la música, con imagen de fondo */
         #pantalla-inicio {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: #0f172a;
+            background-image: url('principio.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,8 +165,8 @@
     <div id="tarjeta">
         <img src="gato.png" alt="Gato persa blanco con negro" class="foto-gato">
 
-        <h1>FELIZ CUMPLEAÑOS PELADA RUTH 🎈</h1>
-        <p>Pasala de forma genuinamente agradable</p>
+        <h1>FELIZ CUMPLEAÑOS PELADA RUTH!</h1>
+        <p> </p>
     </div>
 
     <script>
@@ -201,9 +205,9 @@
                 dab.alt = 'dab';
                 dab.className = 'dab-flotante';
                 dab.style.left = Math.random() * 90 + 'vw';
-                dab.style.width = (Math.random() * 40 + 50) + 'px'; // tamaños variados entre 50 y 90px
-                dab.style.animation = `flotarDab ${Math.random() * 3 + 7}s ease-in-out infinite`;
-                dab.style.animationDelay = Math.random() * 3 + 's';
+                dab.style.width = (Math.random() * 80 + 100) + 'px'; // tamaños variados entre 100 y 180px
+                dab.style.animation = `flotarDab ${Math.random() * 3 + 4}s ease-in-out infinite`;
+                dab.style.animationDelay = Math.random() * 2 + 's';
 
                 document.body.appendChild(dab);
             }
