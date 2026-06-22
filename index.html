@@ -3,45 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>¡Feliz Cumpleaños!</title>
+    <title>¡Feliz Cumpleaños Ruth!</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #0f172a; /* Fondo oscuro y elegante */
+            background-color: #0f172a;
             color: #f8fafc;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            overflow: hidden; /* Evita que la pantalla haga scroll en iPhone */
+            overflow: hidden;
         }
+
+        /* Pantalla inicial para activar la música */
+        #pantalla-inicio {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        button {
+            background-color: #ec4899;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Contenido de la tarjeta (Oculto al inicio) */
+        #tarjeta {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             text-align: center;
-            animation: popIn 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
-            margin: 0 20px 10px 20px;
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            margin: 0 20px 15px 20px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        /* Estilo para la foto del gatito */
+        .foto-gato {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%; /* Hace la foto circular */
+            border: 4px solid #ec4899;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+            margin-bottom: 15px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
         p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-align: center;
-            animation: fadeIn 2s ease-out 1s forwards;
-            opacity: 0;
             padding: 0 30px;
             line-height: 1.5;
+            animation: fadeIn 2s ease-out;
         }
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 16px;
-            animation: fall linear infinite;
-            border-radius: 4px;
+
+        /* Animaciones base */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         @keyframes popIn {
             0% { transform: scale(0.5); opacity: 0; }
@@ -51,28 +93,113 @@
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
+        /* Globos y Confeti */
+        .globo, .confetti {
+            position: absolute;
+            bottom: -50px;
+            z-index: 1;
+        }
+        .globo {
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+        /* El nudo del globo */
+        .globo::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 15px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        /* El hilo del globo */
+        .globo::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 19px;
+            width: 1px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes flotarGlobo {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-120vh) rotate(15deg); }
+        }
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(720deg); }
+            0% { transform: translateY(-10vh) rotate(0deg); top: -10vh; bottom: auto;}
+            100% { transform: translateY(110vh) rotate(720deg); top: -10vh; bottom: auto;}
         }
     </style>
 </head>
 <body>
 
-    <h1>¡Feliz Cumpleaños! 🎉</h1>
-    <p>Espero que tengas un día increíble, lleno de éxitos y buenas sorpresas. ¡Pásala genial!</p>
+    <audio id="musica-fondo" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="pantalla-inicio">
+        <button onclick="iniciarSorpresa()">🎁 Toca para tu sorpresa 🎁</button>
+    </div>
+
+    <div id="tarjeta">
+        <img src="gato.png" alt="Gato persa blanco con negro" class="foto-gato">
+        
+        <h1>FELIZ CUMPLEAÑOS RUTH 🎈</h1>
+        <p>Espero que tengas un día increíble, lleno de éxitos y buenas sorpresas. ¡Pásala genial!</p>
+    </div>
 
     <script>
-        // Generador de confeti aleatorio
-        const colors = ['#38bdf8', '#fbbf24', '#f43f5e', '#a78bfa', '#34d399'];
-        for(let i = 0; i < 70; i++) {
-            let confeti = document.createElement('div');
-            confeti.className = 'confetti';
-            confeti.style.left = Math.random() * 100 + 'vw';
-            confeti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            confeti.style.animationDelay = Math.random() * 5 + 's';
-            confeti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            document.body.appendChild(confeti);
+        function iniciarSorpresa() {
+            // Ocultar inicio y mostrar tarjeta
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('tarjeta').style.display = 'flex';
+            
+            // Iniciar música
+            let musica = document.getElementById('musica-fondo');
+            musica.play().catch(error => console.log("La reproducción automática falló", error));
+
+            crearDecoraciones();
+        }
+
+        function crearDecoraciones() {
+            const coloresConfeti = ['#38bdf8', '#fbbf24', '#f43f5e', '#a78bfa', '#34d399'];
+            const coloresGlobos = ['#ec4899', '#8b5cf6', '#ef4444', '#3b82f6', '#10b981'];
+
+            // Crear Confeti
+            for(let i = 0; i < 50; i++) {
+                let confeti = document.createElement('div');
+                confeti.className = 'confetti';
+                confeti.style.width = '8px';
+                confeti.style.height = '16px';
+                confeti.style.left = Math.random() * 100 + 'vw';
+                confeti.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+                confeti.style.animationDelay = Math.random() * 5 + 's';
+                confeti.style.backgroundColor = coloresConfeti[Math.floor(Math.random() * coloresConfeti.length)];
+                document.body.appendChild(confeti);
+            }
+
+            // Crear Globos
+            for(let i = 0; i < 12; i++) {
+                let globo = document.createElement('div');
+                let colorBase = coloresGlobos[Math.floor(Math.random() * coloresGlobos.length)];
+                globo.className = 'globo';
+                globo.style.left = Math.random() * 90 + 'vw';
+                globo.style.backgroundColor = colorBase;
+                globo.style.animation = `flotarGlobo ${Math.random() * 4 + 6}s ease-in-out infinite`;
+                globo.style.animationDelay = Math.random() * 3 + 's';
+                
+                // Darle color al nudo del globo igual que el cuerpo
+                let style = document.createElement('style');
+                style.innerHTML = `.globo:nth-child(${i})::before { border-bottom: 10px solid ${colorBase}; }`;
+                document.head.appendChild(style);
+
+                document.body.appendChild(globo);
+            }
         }
     </script>
 </body>
