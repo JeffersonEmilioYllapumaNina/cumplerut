@@ -124,8 +124,8 @@
             z-index: 2;
         }
 
-        /* Imagen jorge.png flotando en lugar de los globos */
-        .jorge-flotante {
+        /* GIF dab.gif flotando en lugar de los globos */
+        .dab-flotante {
             position: absolute;
             bottom: -80px;
             z-index: 2;
@@ -134,7 +134,7 @@
             opacity: 0.95;
         }
 
-        @keyframes flotarJorge {
+        @keyframes flotarDab {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(-120vh) rotate(15deg); }
         }
@@ -194,18 +194,18 @@
                 document.body.appendChild(confeti);
             }
 
-            // Crear imágenes de jorge.png flotando (reemplazo de los globos)
+            // Crear GIFs de dab.gif flotando (reemplazo de los globos)
             for(let i = 0; i < 12; i++) {
-                let jorge = document.createElement('img');
-                jorge.src = 'jorge.png';
-                jorge.alt = 'jorge';
-                jorge.className = 'jorge-flotante';
-                jorge.style.left = Math.random() * 90 + 'vw';
-                jorge.style.width = (Math.random() * 40 + 50) + 'px'; // tamaños variados entre 50 y 90px
-                jorge.style.animation = `flotarJorge ${Math.random() * 4 + 6}s ease-in-out infinite`;
-                jorge.style.animationDelay = Math.random() * 3 + 's';
+                let dab = document.createElement('img');
+                dab.src = 'dab.gif';
+                dab.alt = 'dab';
+                dab.className = 'dab-flotante';
+                dab.style.left = Math.random() * 90 + 'vw';
+                dab.style.width = (Math.random() * 40 + 50) + 'px'; // tamaños variados entre 50 y 90px
+                dab.style.animation = `flotarDab ${Math.random() * 4 + 6}s ease-in-out infinite`;
+                dab.style.animationDelay = Math.random() * 3 + 's';
 
-                document.body.appendChild(jorge);
+                document.body.appendChild(dab);
             }
         }
     </script>
